@@ -1,0 +1,11 @@
+{
+  "name": "printfyapi",
+  "version": "1.0.0",
+  "description": "Server script for communicating with printify api",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Olayinka",
+  "license": "ISC"
+}
