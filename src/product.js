@@ -6,6 +6,10 @@ class Product {
     id(id) {
         return id ? id : this.shop_id;
     }
+    create(data, shop_id) {
+        shop_id = thi.id(shop_id)
+        return this.axios.post(`/shops/${shop_id}/products.json`, data)
+    }
     fetch(shop_id) {
         shop_id = this.id(shop_id);
         return this.axios.get(`/shops/${shop_id}/products.json`);
