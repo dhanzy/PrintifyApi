@@ -99,27 +99,154 @@ const result = API.Product.create(data, shop_id);
 ```
 ```js
 // Update a product
-var data = {
+const data = {
 	id: 1234,
 	title:'Product 1'
 };
 
-var result = await API.Product.update(data);
+const result = await API.Product.update(data);
 
 // or
-var result = await API.Product.update(data, shop_id);
+const result = await API.Product.update(data, shop_id);
 
 ```
 ```js
-var result = await API.Product.delete(1234);
+const result = await API.Product.delete(1234);
 ```
 ```js
 // Publish a product
-var result = await API.Product.publish(1234);
+const result = await API.Product.publish(1234);
 
 // Notify that a product was successfully published
-var result = await API.Product.publish(1234, 'success');
+const result = await API.Product.publish(1234, 'success');
 
 // Notify that a product publishing has failed
-var result = await API.Product.publish(1234, 'error');
+const result = await API.Product.publish(1234, 'error');
+```
+```js
+ // Retrieve a list of orders
+const result = await API.Order.fetch();
+
+// or custom shop_id
+const result = await API.Order.fetch(shop_id);
+```
+```js
+ // Get order details by id
+const result = await API.Order.info(order_id);
+
+// or custom shop_id
+const result = await API.Order.fetch(order_id, shop_id);
+```
+```js
+ // Submit an order
+
+const data = {
+    "external_id": "2750e210-39bb-11e9-a503-452618153e4a",
+    "line_items": [
+      {
+        "product_id": "5bfd0b66a342bcc9b5563216",
+        "variant_id": 17887,
+        "quantity": 1
+      }
+    ],
+    "shipping_method": 1,
+    "send_shipping_notification": false,
+    "address_to": {
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "example@msn.com",
+      "phone": "0574 69 21 90",
+      "country": "BE",
+      "region": "",
+      "address1": "ExampleBaan 121",
+      "address2": "45",
+      "city": "Retie",
+      "zip": "2470"
+    }
+  };
+
+const result = await API.Order.create(data);
+
+// or custom shop_id
+const result = await API.Order.create(data, shop_id);
+```
+```js
+// Send an existing order to production
+const result = await API.Order.publish(order_id);
+
+// or custom shop_id
+const result = await API.Order.publish(order_id, shop_id);
+```
+```js
+// Calculate the shipping cost of an order
+
+const order = {
+    "line_items": [{
+        "product_id": "5bfd0b66a342bcc9b5563216",
+        "variant_id": 17887,
+        "quantity": 1
+    },{
+        "print_provider_id": 5,
+        "blueprint_id": 9,
+        "variant_id": 17887,
+        "quantity": 1
+    },{
+        "sku": "MY-SKU",
+        "quantity": 1
+    }],
+    "address_to": {
+        "first_name": "John", // not required
+        "last_name": "Smith", // not required
+        "email": "example@msn.com", // not required
+        "phone": "0574 69 21 90", // not required
+        "country": "BE",
+        "region": "",
+        "address1": "ExampleBaan 121",
+        "address2": "45",
+        "city": "Retie",
+        "zip": "2470"
+    }
+};
+
+const result = await API.Order.shipping_cost(order);
+
+// or custom shop_id
+const result = await API.Order.shipping_cost(order, shop_id);
+```
+```js
+// Retrieve a list of webhooks
+const result = await API.Webhook.fetch();
+
+// or custom shop_id
+const result = await API.Webhook.fetch(shop_id);
+```
+```js
+// Retrieve a webhook
+const result = await API.Webhook.info(webhook_id);
+
+// or custom shop_id
+const result = await API.Webhook.info(webhook_id, shop_id);
+```
+```js
+// Create a new webhook
+const data = {
+    "topic": "order:created",
+    "url": "https://morioh.com/webhooks/order/created"
+}
+
+const result = await API.Webhook.create(data);
+
+// or custom shop_id
+const result = await API.Webhook.create(data, shop_id);
+```
+```js
+// Modify a webhook
+var data = {
+    id: 12345,
+    "url": "https://othersite.com/callback/order/created"
+};
+var result = await API.Webhook.update(data);
+
+// or custom shop_id
+var result = await API.Webhook.update(data, shop_id);
 ```
